@@ -91,9 +91,9 @@ new <- data.frame(dates = c(rep("1.16",10),rep("1.17",10),rep("1.18",10),rep("1.
 
 
 
-ytm1 <- A1_python[,22:31]
+ytm1 <- A1_python[,21:31]
 year <- seq(0.5,5,0.5)
-plot(year,t(ytm1[,1]),type = 'l', xlab = 'Year', ylab = 'Yield to Maturity', main = 'YTM curve',col='red', ylim=c(0.015,0.03))
+plot(year,t(ytm1[,1]),type = 'l', xlab = 'Year', ylab = 'Yield to Maturity', main = 'YTM curve',col='red', ylim=c(0.01,0.04))
 lines(year,t(ytm1[,2]),col=1,lty=1,type = 'l')
 lines(year,t(ytm1[,3]),col=2,lty=1,type = 'l')
 lines(year,t(ytm1[,4]),col=3,lty=1,type = 'l')
@@ -194,87 +194,88 @@ lines(c(2,3,4,5), forward_rate[10,],type = 'l',lwd = 1.0, col='yellowgreen')
 
 ```{r}
 # spot for bond 1
-for (i in 1:10){
-  fun <- function (x) 100*exp(-x*5/6)-as.numeric(A1_python[1,9+i])
+for (i in 1:11){
+  c = 100*0.0025/2
+  fun <- function (x) 100*exp(-x*7/6)-as.numeric(A1_python[1,9+i])+c*exp(-x*1/6)
   uni <- uniroot(fun, c(0, 8))$root
-  A1_python[1,32+i] <- uni
+  A1_python[1,31+i] <- uni
 }
 
 # spot for bond 2
-for (i in 1:10){
-  c = 100*0.025/2
-  fun <- function (x) 100*exp(-x*17/6)-as.numeric(A1_python[2,9+i])+c*exp(-x*5/6)+c*exp(-x*11/6)+c*exp(-x*17/6)
+for (i in 1:11){
+  c = 100*0.0075/2
+  fun <- function (x) 100*exp(-x*13/6)-as.numeric(A1_python[2,9+i])+c*exp(-x*1/6)+c*exp(-x*7/6)+c*exp(-x*13/6)
   uni <- uniroot(fun, c(0, 8))$root
-  A1_python[2,32+i] <- uni
+  A1_python[2,31+i] <- uni
 }
 
 # spot for bond 3
-for (i in 1:10){
-  c = 100*0.015/2
-  fun <- function (x) 100*exp(-x*20/6)-as.numeric(A1_python[3,9+i])+c*exp(-x*2/6)+c*exp(-x*8/6)+c*exp(-x*14/6)+c*exp(-x*20/6)
+for (i in 1:11){
+  c = 100*0.0275/2
+  fun <- function (x) 100*exp(-x*19/6)-as.numeric(A1_python[3,9+i])+c*exp(-x*1/6)+c*exp(-x*7/6)+c*exp(-x*13/6)+c*exp(-x*19/6)
   uni <- uniroot(fun, c(0, 8))$root
-  A1_python[3,32+i] <- uni
+  A1_python[3,31+i] <- uni
 }
 
 # spot for bond 4
-for (i in 1:10){
-  c = 100*0.0125/2
-  fun <- function (x) 100*exp(-x*26/6)-as.numeric(A1_python[4,9+i])+c*exp(-x*2/6)+c*exp(-x*8/6)+c*exp(-x*14/6)+c*exp(-x*20/6)+c*exp(-x*26/6)
+for (i in 1:11){
+  c = 100*0.0375/2
+  fun <- function (x) 100*exp(-x*25/6)-as.numeric(A1_python[4,9+i])+c*exp(-x*1/6)+c*exp(-x*7/6)+c*exp(-x*13/6)+c*exp(-x*19/6)+c*exp(-x*25/6)
   uni <- uniroot(fun, c(0, 8))$root
-  A1_python[4,32+i] <- uni
+  A1_python[4,31+i] <- uni
 }
 
 # spot for bond 5
-for (i in 1:10){
-  c = 100*0.0225/2
-  fun <- function (x) 100*exp(-x*29/6)-as.numeric(A1_python[5,9+i])+c*exp(-x*5/6)+c*exp(-x*11/6)+c*exp(-x*17/6)+c*exp(-x*23/6)+c*exp(-x*29/6)
+for (i in 1:11){
+  c = 100*0.005/2
+  fun <- function (x) 100*exp(-x*32/6)-as.numeric(A1_python[5,9+i])+c*exp(-x*2/6)+c*exp(-x*8/6)+c*exp(-x*14/6)+c*exp(-x*20/6)+c*exp(-x*26/6)+c*exp(-x*32/6)
   uni <- uniroot(fun, c(0, 8))$root
-  A1_python[5,32+i] <- uni
+  A1_python[5,31+i] <- uni
 }
 
 # spot for bond 6
-for (i in 1:10){
-  c = 100*0.005/2
-  fun <- function (x) 100*exp(-x*32/6)-as.numeric(A1_python[6,9+i])+c*exp(-x*2/6)+c*exp(-x*8/6)+c*exp(-x*14/6)+c*exp(-x*20/6)+c*exp(-x*26/6)+c*exp(-x*32/6)
+for (i in 1:11){
+  c = 100*0.0025/2
+  fun <- function (x) 100*exp(-x*38/6)-as.numeric(A1_python[6,9+i])+c*exp(-x*2/6)+c*exp(-x*8/6)+c*exp(-x*14/6)+c*exp(-x*20/6)+c*exp(-x*26/6)+c*exp(-x*32/6)+c*exp(-x*38/6)
   uni <- uniroot(fun, c(0, 8))$root
-  A1_python[6,32+i] <- uni
+  A1_python[6,31+i] <- uni
 }
 
 # spot for bond 7
-for (i in 1:10){
-  c = 100*0.015/2
-  fun <- function (x) 100*exp(-x*41/6)-as.numeric(A1_python[7,9+i])+c*exp(-x*5/6)+c*exp(-x*11/6)+c*exp(-x*17/6)+c*exp(-x*23/6)+c*exp(-x*29/6)+c*exp(-x*35/6)+c*exp(-x*41/6)
+for (i in 1:11){
+  c = 100*0.01/2
+  fun <- function (x) 100*exp(-x*44/6)-as.numeric(A1_python[7,9+i])+c*exp(-x*2/6)+c*exp(-x*8/6)+c*exp(-x*14/6)+c*exp(-x*20/6)+c*exp(-x*26/6)+c*exp(-x*32/6)+c*exp(-x*38/6)+c*exp(-x*44/6)
   uni <- uniroot(fun, c(0, 8))$root
-  A1_python[7,32+i] <- uni
+  A1_python[7,31+i] <- uni
 }
 
 # spot for bond 8
-for (i in 1:10){
+for (i in 1:11){
   c = 100*0.0125/2
   fun <- function (x) 100*exp(-x*50/6)-as.numeric(A1_python[8,9+i])+c*exp(-x*2/6)+c*exp(-x*8/6)+c*exp(-x*14/6)+c*exp(-x*20/6)+c*exp(-x*26/6)+c*exp(-x*32/6)+c*exp(-x*38/6)+c*exp(-x*44/6)+c*exp(-x*50/6)
   uni <- uniroot(fun, c(0, 8))$root
-  A1_python[8,32+i] <- uni
+  A1_python[8,31+i] <- uni
 }
 
 # spot for bond 9
-for (i in 1:10){
-  c = 100*0.01/2
-  fun <- function (x) 100*exp(-x*53/6)-as.numeric(A1_python[9,9+i])+c*exp(-x*5/6)+c*exp(-x*11/6)+c*exp(-x*17/6)+c*exp(-x*23/6)+c*exp(-x*29/6)+c*exp(-x*35/6)+c*exp(-x*41/6)+c*exp(-x*47/6)+c*exp(-x*53/6)
+for (i in 1:11){
+  c = 100*0.03245/2
+  fun <- function (x) 100*exp(-x*55/6)-as.numeric(A1_python[9,9+i])+c*exp(-x*1/6)+c*exp(-x*7/6)+c*exp(-x*13/6)+c*exp(-x*19/6)+c*exp(-x*25/6)+c*exp(-x*31/6)+c*exp(-x*37/6)+c*exp(-x*43/6)+c*exp(-x*49/6)+c*exp(-x*55/6)
   uni <- uniroot(fun, c(0, 8))$root
-  A1_python[9,32+i] <- uni
+  A1_python[9,31+i] <- uni
 }
 
-# spot for bond 9
-for (i in 1:10){
+# spot for bond 10
+for (i in 1:11){
   c = 100*0.035/2
   fun <- function (x) 100*exp(-x*62/6)-as.numeric(A1_python[10,9+i])+c*exp(-x*2/6)+c*exp(-x*8/6)+c*exp(-x*14/6)+c*exp(-x*20/6)+c*exp(-x*26/6)+c*exp(-x*32/6)+c*exp(-x*38/6)+c*exp(-x*44/6)+c*exp(-x*50/6)+c*exp(-x*56/6)+c*exp(-x*62/6)
   uni <- uniroot(fun, c(0, 8))$root
-  A1_python[10,32+i] <- uni
+  A1_python[10,31+i] <- uni
 }
 
-ytm1 <- A1_python[,33:42]
+ytm1 <- A1_python[,32:42]
 year <- seq(0.5,5,0.5)
-plot(year,t(ytm1[,1]),type = 'l', xlab = 'Year', ylab = 'spot rate', main = 'spot curve',col='red', ylim=c(0.013,0.021))
+plot(year,t(ytm1[,1]),type = 'l', xlab = 'Year', ylab = 'spot rate', main = 'spot curve',col='red', ylim=c(0.014,0.024))
 lines(year,t(ytm1[,2]),col=1,lty=1,type = 'l')
 lines(year,t(ytm1[,3]),col=2,lty=1,type = 'l')
 lines(year,t(ytm1[,4]),col=3,lty=1,type = 'l')
@@ -290,7 +291,7 @@ lines(year,t(ytm1[,10]),col=9,lty=1,type = 'l')
 ```{r}
 # forward 1-1
 frate <- data.frame()
-forwdata <- A1_python[,33:43]
+forwdata <- A1_python[,32:42]
 for (i in 1:10){
   frate[1,i] <- 4*as.numeric(forwdata[4,i])-2*as.numeric(forwdata[2,i])
 }
@@ -311,7 +312,7 @@ for (i in 1:10){
 }
 
 # plot the forward rates for different dates
-plot(c(1,2,3,4), frate[,1], type = 'l',main = "1-Year Deferred Forward Curve", xlab = "years forward", ylab = "Forward Rate", ylim = c(0.025,0.033))
+plot(c(1,2,3,4), frate[,1], type = 'l',main = "1-Year Deferred Forward Curve", xlab = "years forward", ylab = "Forward Rate", ylim = c(0.023,0.045))
 lines(c(1,2,3,4), frate[,2],type = 'l',lwd = 1.0, col='red')
 lines(c(1,2,3,4), frate[,3],type = 'l',lwd = 1.0, col='green')
 lines(c(1,2,3,4), frate[,4],type = 'l',lwd = 1.0, col='blue')
